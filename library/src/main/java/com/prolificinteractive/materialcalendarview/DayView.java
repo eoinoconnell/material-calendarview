@@ -21,6 +21,9 @@ import android.text.Spanned;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.CheckedTextView;
+import android.graphics.drawable.InsetDrawable;
+import android.util.DisplayMetrics;
+import android.content.res.Resources;
 
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView.ShowOtherDates;
 import com.prolificinteractive.materialcalendarview.format.DayFormatter;
@@ -203,17 +206,14 @@ class DayView extends CheckedTextView {
                 return new LinearGradient(0, 0, 0, 0, color, color, Shader.TileMode.REPEAT);
             }
         });
-        InsetDrawable insetDrawable = new InsetDrawable(drawable, convertDpToPixel(3, App.getContext()));
+        InsetDrawable insetDrawable = new InsetDrawable(drawable, convertDpToPixel(3));
 
         return insetDrawable;
     }
 
 
-    public static int convertDpToPixel(float dp, Context context){
-        Resources resources = context.getResources();
-        DisplayMetrics metrics = resources.getDisplayMetrics();
-        float px = dp * ((float)metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT);
-        return (int) px;
+    public static int convertDpToPixel(float dp){
+        return (int) (dp * Resources.getSystem().getDisplayMetrics().density);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
