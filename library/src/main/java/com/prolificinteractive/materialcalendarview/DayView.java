@@ -188,13 +188,9 @@ class DayView extends CheckedTextView {
         StateListDrawable drawable = new StateListDrawable();
         drawable.setExitFadeDuration(fadeTime);
         drawable.addState(new int[]{android.R.attr.state_checked}, generateCircleDrawable(color));
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            drawable.addState(new int[]{android.R.attr.state_pressed}, generateRippleDrawable(color));
-        } else {
-            drawable.addState(new int[]{android.R.attr.state_pressed}, generateCircleDrawable(color));
-        }
-
-        drawable.addState(new int[]{}, generateCircleDrawable(Color.TRANSPARENT));
+        drawable.addState(new int[]{android.R.attr.state_pressed}, generateCircleDrawable(color));
+        
+        drawable.addState(new int[]{}, generateCircleDrawable(Color.parseColor("#14C69B")));
 
         return drawable;
     }
@@ -207,7 +203,17 @@ class DayView extends CheckedTextView {
                 return new LinearGradient(0, 0, 0, 0, color, color, Shader.TileMode.REPEAT);
             }
         });
-        return drawable;
+        InsetDrawable insetDrawable = new InsetDrawable(drawable, convertDpToPixel(3, App.getContext()));
+
+        return insetDrawable;
+    }
+
+
+    public static int convertDpToPixel(float dp, Context context){
+        Resources resources = context.getResources();
+        DisplayMetrics metrics = resources.getDisplayMetrics();
+        float px = dp * ((float)metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT);
+        return (int) px;
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
