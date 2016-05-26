@@ -191,6 +191,7 @@ class DayView extends CheckedTextView {
         StateListDrawable drawable = new StateListDrawable();
         drawable.setExitFadeDuration(fadeTime);
         drawable.addState(new int[]{android.R.attr.state_checked}, generateCircleDrawable(color));
+                drawable.addState(new int[]{android.R.attr.android:state_checkable}, generateCircleDrawable(color));
         drawable.addState(new int[]{android.R.attr.state_pressed}, generateCircleDrawable(color));
         
         drawable.addState(new int[]{}, generateCircleDrawable(Color.parseColor("#14C69B")));
